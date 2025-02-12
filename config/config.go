@@ -1,29 +1,20 @@
 package config
 
+import "os"
+
+// Config holds configuration for the application.
 type Config struct {
-	DB *DBConfig
+	Port string
 }
 
-type DBConfig struct {
-	Dialect  string
-	Host     string
-	Port     int
-	Username string
-	Password string
-	Name     string
-	Charset  string
-}
-
-func GetConfig() *Config {
-	return &Config{
-		DB: &DBConfig{
-			Dialect:  "mysql",
-			Host:     "127.0.0.1",
-			Port:     3306,
-			Username: "guest",
-			Password: "Guest0000!",
-			Name:     "todoapp",
-			Charset:  "utf8",
-		},
+// LoadConfig loads configuration from environment variables,
+// defaulting the port to 8080 if not provided.
+func LoadConfig() (*Config, error) {
+	cfg := &Config{
+		Port: os.Getenv("PORT"),
 	}
+	if cfg.Port == "" {
+		cfg.Port = "8080" // default port
+	}
+	return cfg, nil
 }
