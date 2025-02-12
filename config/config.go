@@ -14,7 +14,7 @@ func LoadConfig() (*Config, error) {
 		Port: os.Getenv("PORT"),
 	}
 	if cfg.Port == "" {
-		cfg.Port = "8080" // default port
+		cfg.Port = "3000" // default port
 	}
 	return cfg, nil
 }
