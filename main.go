@@ -3,9 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
-
-	"github.com/mingrammer/go-todo-rest-api-example/app"
-	"github.com/mingrammer/go-todo-rest-api-example/config"
+	"todo/app"
+	"todo/config"
 )
 
 func main() {
