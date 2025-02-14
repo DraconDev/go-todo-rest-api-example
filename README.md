@@ -14,42 +14,72 @@ cd go-todo-rest-api-example
 # Install dependencies
 go mod download
 
-			Dialect:  "mysql",
-			Username: "guest",
-			Password: "Guest0000!",
-			Name:     "todoapp",
-			Charset:  "utf8",
-		},
-	}
+# Run locally
+go run main.go
+
+# API Endpoint : http://localhost:8080
+```
+
+### Docker
+```bash
+# Build Docker image
+docker build -t todo-api .
+
+# Run container
+docker run -p 8080:8080 todo-api
+
+# API Endpoint : http://localhost:8080
+```
+
+### Google Cloud Run Deployment
+1. Connect your GitHub repository to Cloud Run
+2. Set up Cloud Build trigger:
+   - Source: GitHub repository
+   - Branch: main (or your default branch)
+   - Configuration: Dockerfile
+   - Location: Repository
+3. Push changes to GitHub to trigger automatic deployment
+4. Access your API at the provided Cloud Run URL
+
+## Configuration
+The application uses environment variables for configuration:
+- `PORT`: Server port (defaults to 8080)
+
+Database configuration in [config/config.go](config/config.go):
+```go
+func GetConfig() *Config {
+    return &Config{
+        DB: &DBConfig{
+            Dialect:  "mysql",
+            Username: "guest",
+            Password: "Guest0000!",
+            Name:     "todoapp",
+            Charset:  "utf8",
+        },
+    }
 }
 ```
 
-```bash
-# Build and Run
-cd go-todo-rest-api-example
-go build
-./go-todo-rest-api-example
-
-# API Endpoint : http://127.0.0.1:3000
-```
-
-## Structure
+## Project Structure
 ```
 ├── app
-│   ├── app.go
-│   ├── handler          // Our API core handlers
-│   │   ├── common.go    // Common response functions
-│   │   ├── projects.go  // APIs for Project model
-│   │   └── tasks.go     // APIs for Task model
-│   └── model
-│       └── model.go     // Models for our application
+│   ├── app.go
+│   ├── handler          // Our API core handlers
+│   │   ├── common.go    // Common response functions
+│   │   ├── projects.go  // APIs for Project model
+│   │   └── tasks.go     // APIs for Task model
+│   └── model
+│       └── model.go     // Models for our application
 ├── config
-│   └── config.go        // Configuration
-└── main.go
+│   └── config.go        // Configuration
+├── Dockerfile          // Docker configuration
+├── .dockerignore      // Docker ignore file
+└── main.go            // Application entry point
 ```
 
-## API
+## API Endpoints
 
+### Projects
 #### /projects
 * `GET` : Get all projects
 * `POST` : Create a new project
@@ -63,6 +93,7 @@ go build
 * `PUT` : Archive a project
 * `DELETE` : Restore a project 
 
+### Tasks
 #### /projects/:title/tasks
 * `GET` : Get all tasks of a project
 * `POST` : Create a new task in a project
@@ -76,12 +107,13 @@ go build
 * `PUT` : Complete a task of a project
 * `DELETE` : Undo a task of a project
 
-## Todo
+## Development Status
 
-- [x] Support basic REST APIs.
-- [ ] Support Authentication with user for securing the APIs.
-- [ ] Make convenient wrappers for creating API handlers.
-- [ ] Write the tests for all APIs.
+- [x] Support basic REST APIs
 - [x] Organize the code with packages
+- [x] Docker support
+- [x] Cloud Run deployment setup
+- [ ] Support Authentication with user for securing the APIs
+- [ ] Make convenient wrappers for creating API handlers
+- [ ] Write tests for all APIs
 - [ ] Make docs with GoDoc
-- [ ] Building a deployment process 
