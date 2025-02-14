@@ -1,0 +1,15 @@
+# Binaries and build artifacts
+todo
+todo-api
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# IDE
+.vscode
+.idea
