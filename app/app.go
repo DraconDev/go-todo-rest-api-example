@@ -17,7 +17,7 @@ func SetupRouter() http.Handler {
 
 // helloHandler sends a welcome message.
 func helloHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, welcome to the Todo REST API !!!"))
+	w.Write([]byte("Hello, welcome to the Todo REST API cause why not"))
 }
 
 // Todo represents a simple task structure.
